@@ -1,0 +1,9 @@
+tqdm>=4.46.0
+torch>=1.7.0
+torchaudio>=0.12.1
+librosa>=0.8.0
+hydra-core==1.1.1
+protobuf==3.19.4
+tensorboard==2.8.0
+torchcrepe==0.0.16
+h5py==3.7.0

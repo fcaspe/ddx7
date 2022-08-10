@@ -1,0 +1,20 @@
+defaults:
+  - hyperparams: hp
+  - model: f0ld_dec_hpn
+
+instrument: violin
+device: cuda:0
+mode: train
+data_dir: data
+exp_name: test
+run_name: test
+run_dir: runs
+seed: 1234
+train_split: 0.75
+resume_epoch: 0 #Resume epoch to keep training or just to test. 0 for no resume
+
+
+hydra:
+  output_subdir: .
+  run:
+    dir: ${run_dir}/${exp_name}/${run_name}
