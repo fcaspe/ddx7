@@ -1,11 +1,13 @@
 testset:
   source_folder: '/homes/fsc01/proj/wavetest' #path to a directory containing folders with instrument names
   instruments: ['violin','flute','trumpet']
+  contiguous: True                            # Do not 'chop' into instances, generate a single contiguous instance extracted from audio.
+  clip_noise: True                            # Clip loudness back to -80db when f0 is over 1900 (avoids crepe to track noise)
   input_dir: 'files/test'
   output_dir: 'data/test'
 
 urmp:
-  source_folder: '/homes/fsc01/proj/URMP_test/Dataset' # path to urmp dataset finishing in ... /URMP/Dataset
+  source_folder: '/homes/fsc01/proj/URMP/Dataset' # path to urmp dataset finishing in ... "/URMP/Dataset"
   instruments:  #URMP IDs of instruments
     'vn': 'violin'
     'tpt': 'trumpet'
@@ -41,7 +43,5 @@ hydra:
 
 process_urmp: True
 process_testset: True
-test_set_contiguous: True
-test_set_clip_noise: True #Clip loudness back to -80db when f0 is over 1900 (avoids crepe to track noise)
 dont_process: False # Skip processing
 dont_copy: False    # Skip file copying

@@ -273,8 +273,8 @@ def make_testset(args):
 
         #Override original crepe confidence to process all the testset file.
         data_processor.set_confidence(0.0)
-        data_processor.contiguous = args.test_set_contiguous
-        data_processor.contiguous_clip_noise = args.test_set_clip_noise #Clip frequencies tracked due to noise.
+        data_processor.contiguous = args.testset.contiguous
+        data_processor.contiguous_clip_noise = args.testset.clip_noise #Clip frequencies tracked due to noise.
 
         data_processor.run_on_dirs(CWD / args.testset.input_dir,
                                 CWD / args.testset.output_dir)
