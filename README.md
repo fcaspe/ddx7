@@ -50,7 +50,7 @@ python create_data.py urmp.source_folder=/path/to/URMP/Dataset
 Please check the `recipes` directory for available models and hyperparameters.
 Make sure processed data is at the expected directory.
 
-**Quick start: train DDX7** - will train a DDX7 model on URMP violin data on the GPU.
+**Quick start:** - will train a DDX7 model on URMP violin data on the GPU.
 
 ```bash
 python train.py # override GPU with "device=cpu" option.
