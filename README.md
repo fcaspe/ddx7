@@ -8,8 +8,12 @@
     </p>
 </div>
 
-This is the official implementation of the paper, accepted to the 23rd International Society
-for Music Information Retrieval Conference [ISMIR 2022](https://ismir2022.ismir.net/).
+<center>
+<img src="img/architecture.png"">
+</center>
+
+This is the official implementation of the DDX7 paper, accepted to the 23rd International Society
+for Music Information Retrieval Conference ([ISMIR 2022](https://ismir2022.ismir.net/)).
 
 ## Install
 
@@ -23,10 +27,10 @@ pip install -e .
 Also make sure `pytorch` is setup with the [CUDA version](https://pytorch.org/get-started/locally/)
 that support the capabilities of your GPU.
 
-## About configuration
+## About option management
 
-This codebase employs [`Hydra`](https://hydra.cc/) to personalize dataset generation, and build and train models.
-Please checkout available options in `yaml` files before processing a dataset or training a model.
+Please note we use [`hydra`](https://hydra.cc/) to personalize dataset generation, and build and train models.
+It is reccomended to take a look at the available options in `yaml` files before processing a dataset or training a model.
 
 ## Dataset Generation
 
@@ -34,7 +38,7 @@ We used the [URMP](https://labsites.rochester.edu/air/projects/URMP.html) datase
 Additional test files can be aggregated and used for resynthesis tasks.
 Please check the `dataset` directory for advanced options to process and build a dataset.
 
-**Quick start** - will extract and process violin, flute, and trumpet data with [`torchcrepe`](https://github.com/maxrmorrison/torchcrepe).
+**Quick start** - will extract and process violin, flute, and trumpet data using [`torchcrepe`](https://github.com/maxrmorrison/torchcrepe).
 
 ```bash
 cd dataset
