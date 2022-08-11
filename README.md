@@ -1,25 +1,24 @@
 <h1 align="center">DDX7: DDX7: Differentiable FM Synthesis of Musical Instrument Sounds</h1>
 <div align="center">
 <h4>
-    <a href="" target="_blank">paper</a>
-    <a href="https://fcaspe.github.io/ddx7" target="_blank">website</a>
+    <a href="" target="_blank">paper</a> - <a href="https://fcaspe.github.io/ddx7" target="_blank">website</a>
 </h4>
     <p>
     Franco Caspe - Andrew McPherson - Mark Sandler
     </p>
 </div>
 
-This is the official implementation of the paper, accepted to the 23rd International Society 
+This is the official implementation of the paper, accepted to the 23rd International Society
 for Music Information Retrieval Conference [ISMIR 2022](https://ismir2022.ismir.net/).
 
 ## Install
 
 It is reccomended to install this repo on a virtual environment.
 
-`
-pip install -r requirements.txt  
-pip install -e .
-`
+
+    pip install -r requirements.txt
+    pip install -e .
+
 Also make sure `pytorch` is setup with the [CUDA version](https://pytorch.org/get-started/locally/)
 that support the capabilities of your GPU.
 
