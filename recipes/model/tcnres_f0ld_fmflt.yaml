@@ -13,6 +13,6 @@ synth:
   _target_: ddx7.synth.FMSynth
   sample_rate: 16000
   block_size: 64
-  max_ol: 2       #max_ol is specified in multiples of 2*pi
+  max_ol: 0.32       #max_ol is specified in multiples of 2*pi
   fr: [1, 1, 1, 2, 2, 1.5]
   synth_module: fmflute

@@ -34,17 +34,17 @@ Additional test files can be aggregated and used for resynthesis tasks.
 Please check the `dataset` directory for advanced options to process and build a dataset.
 
 **Quick start** - will extract and process violin, flute, and trumpet data with [`torchcrepe`](https://github.com/maxrmorrison/torchcrepe).
-`
-python dataset/create_data.py urmp.source_folder=/path/to/URMP/Dataset
-`
+
+    python dataset/create_data.py urmp.source_folder=/path/to/URMP/Dataset
+
 
 ## Training
 
 Please check the `recipes` directory for available models and hyperparameters.
 
 **Quick start: train DDX7** - will train a DDX7 model on violin data on GPU.
-`
-python train.py # override GPU use with "device=cpu" option.
-`
+
+    python train.py # override GPU with "device=cpu" option.
+
 
 ## Citation
