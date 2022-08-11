@@ -46,6 +46,6 @@ hydra:
     dir: outputs/null
 
 process_urmp: True      # Process URMP.
-process_testset: True   # Process additional testset.
+process_testset: False  # Process additional testset.
 skip_copy: False        # Skip file copying (if you have already done so)
 skip_process: False     # Dry run.
