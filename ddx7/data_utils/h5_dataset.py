@@ -23,7 +23,6 @@ class h5Dataset(Dataset):
         keys = h5f.keys()
         nkeys = len(keys)
         ndata = (len(keys)//nfeatures)
-        print("[DEBUG] total keys {} - dataset len: {}".format(nkeys,nkeys/nfeatures))
         if((nkeys//nfeatures)*nfeatures != nkeys):
             raise Exception("Unexpected dataset len.")
 

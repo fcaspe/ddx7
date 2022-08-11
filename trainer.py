@@ -247,11 +247,13 @@ class Trainer():
         time.sleep(5) #Wait for all models to be written to disk.
 
         model = model.eval()
-        for k in ['valid','test','test_cnt']:
-            # NOTE: Force test of long files on CPU
-            # (there's an error on GPU rendering for long continuous instances.)
-            # seems to be torch.cumsum according to comments online. TODO: Check this
+        for k in self.loaders.keys():
+            if(k == 'train'): continue
+            print(k)
             if(k == 'test_cnt'):
+                # NOTE: Force test of long files on CPU
+                # (there's an error on GPU rendering for long continuous instances.)
+                # seems to be torch.cumsum according to comments online. TODO: Check this
                 print(f'[INFO] running continuous rendering test on cpu. Enabling cumsum_nd() - rendering may be slow . . .')
                 model = model.to('cpu')
                 model.enable_cumsum_nd()
@@ -293,7 +295,6 @@ class Trainer():
             # we should store and restore the state dict of scheduler and optimizer too.
 
         if(mode == 'train'):
-            print("[INFO] Trainer.run() Running in train mode.")
             self.best_model_epoch = 0
             self.train_step_counter = 0
             self.writer = SummaryWriter(path.join('.'), flush_secs=20)
@@ -309,7 +310,6 @@ class Trainer():
             self.test(self.model)
 
         elif(mode == 'test'):
-            print("[INFO] Trainer.run() Running in test mode.")
             self.test(self.model)
 
         return model

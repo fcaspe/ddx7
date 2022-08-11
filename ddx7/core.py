@@ -52,8 +52,11 @@ def cumsum_nd(in_tensor,wrap_value=None):
     because we render a common phase (wrapped using cumsum_nd) and then we multiply it
     by the frequency ratio. This introduces a misalignment if we multiply the wrapped phase
     by a non-integer frequency ratio.
+
+    TODO: implement an efficient vectorial cumsum with wrapping we can use to accumulate
+          phases from all oscillators separately
     '''
-    print("[WARNING] Using safe cumsum. Non integer frequency ratios do not work if only computing one common cumsum phase for all oscillators.")
+    print("[WARNING] Using non differentiable cumsum. Non-integer frequency ratios wont render well.")
     input_len = in_tensor.size()[1]
     nb = in_tensor.size()[0]
     acc = torch.zeros([nb,1,1])

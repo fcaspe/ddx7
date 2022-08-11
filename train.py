@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, random_split
 import hydra
 
 
-def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu'):
+def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu',load_additional_testset=True):
 
    # Loading Data and splitting it into train validation and test data
     print(hydra.utils.get_original_cwd())
@@ -17,7 +17,6 @@ def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu
                     input_keys=input_keys,
                     max_audio_val=1,
                     device=device)
-
 
     train_split = int(train_split*len(traindset))
     test_split = (len(traindset)-train_split) // 2
@@ -39,31 +38,32 @@ def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu
                             shuffle = False,
                             drop_last=False) #Dont drop last for test. Use all the data for test.
 
-    # Now load continuous test
-    testcdata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/dataset/{data_dir}/test/{instrument}/16000.h5')
-    test_cnt = h5Dataset(sr=16000,
-                    data_path=testcdata_path,
-                    input_keys=input_keys,
-                    max_audio_val=1,
-                    device='cpu') #Force test set on CPU
-
-    testcloader = DataLoader(test_cnt,
-                            batch_size=1, # Always batch size of 1 for continuous test
-                            shuffle = False, #don't shuffle for test set.
-                            drop_last=False)
-
-
 
     print('[INFO] Train Dataset len: {}'.format(len(train)))
     print('[INFO] Valid Dataset len: {}'.format(len(valid)))
     print('[INFO] Test Dataset len: {}'.format(len(test)))
-    print('[INFO] Test Continuous Dataset len: {}'.format(len(test_cnt)))
-
     loaders = {}
     loaders['train'] = trainloader
     loaders['valid'] = validloader
     loaders['test'] = testloader
-    loaders['test_cnt'] = testcloader
+
+    if(load_additional_testset == True):
+        # Now load test with additional, non-URMP, audio excerpts.
+        testcdata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/dataset/{data_dir}/test/{instrument}/16000.h5')
+        test_cnt = h5Dataset(sr=16000,
+                        data_path=testcdata_path,
+                        input_keys=input_keys,
+                        max_audio_val=1,
+                        device='cpu') #Force test set on CPU
+
+        testcloader = DataLoader(test_cnt,
+                                batch_size=1, # Always batch size of 1 for continuous test
+                                shuffle = False, #don't shuffle for test set.
+                                drop_last=False)
+
+        print('[INFO] Test Continuous Dataset len: {}'.format(len(test_cnt)))
+        loaders['test_cnt'] = testcloader
+
     return loaders
 
 @hydra.main(config_path="recipes",config_name="config.yaml")
@@ -71,7 +71,8 @@ def main(args):
     torch.manual_seed(args.seed)
 
     loaders = get_loaders(args.instrument,args.data_dir,train_split=args.train_split,
-        batch_size=args.hyperparams.batch_size,device=args.device)
+        batch_size=args.hyperparams.batch_size,device=args.device,
+        load_additional_testset=args.load_additional_testset)
 
     hyperparams = hydra.utils.instantiate(args.hyperparams)
     # After instantiation, adjust hyperparam config (will not need this in Hydra 1.2)

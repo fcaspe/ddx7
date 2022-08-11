@@ -1,17 +1,21 @@
 defaults:
-  - hyperparams: hp
-  - model: f0ld_dec_hpn
+  - hyperparams: ddx7
+  - model: tcnres_f0ld_fmstr    # Model to train (TCN w/ residual connections and string FM synth)
 
 instrument: violin
 device: cuda:0
 mode: train
-data_dir: data
-exp_name: test
-run_name: test
-run_dir: runs
+data_dir: data                  # Processed data dir (within dataset directory)
+load_additional_testset: True   # Load additional testset from external files.
 seed: 1234
-train_split: 0.75
-resume_epoch: 0 #Resume epoch to keep training or just to test. 0 for no resume
+train_split: 0.8                # Split factor for URMP train set. Rest is halved in valid and test set.
+resume_epoch: 0                 # Resume epoch to keep training or just to test. 0 for no resume
+
+
+run_dir: runs                   # Directory where to store runs.
+                                # Each run dir contain experiments. Each experiment contain different runs.
+exp_name: exp_test              # Experiment name.
+run_name: testrun               # Run name (within experiment).
 
 
 hydra:
