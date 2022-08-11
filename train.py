@@ -10,7 +10,7 @@ def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu
 
    # Loading Data and splitting it into train validation and test data
     print(hydra.utils.get_original_cwd())
-    traindata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/dataset/{data_dir}/train/{instrument}/16000.h5')
+    traindata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/{data_dir}/train/{instrument}/16000.h5')
     input_keys = ('audio','loudness','f0','rms')
     traindset = h5Dataset(sr=16000,
                     data_path=traindata_path,
@@ -49,7 +49,7 @@ def get_loaders(instrument,data_dir,train_split = 0.80,batch_size=16,device='cpu
 
     if(load_additional_testset == True):
         # Now load test with additional, non-URMP, audio excerpts.
-        testcdata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/dataset/{data_dir}/test/{instrument}/16000.h5')
+        testcdata_path = '{}{}'.format(hydra.utils.get_original_cwd(), f'/{data_dir}/test/{instrument}/16000.h5')
         test_cnt = h5Dataset(sr=16000,
                         data_path=testcdata_path,
                         input_keys=input_keys,

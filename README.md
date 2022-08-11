@@ -1,4 +1,4 @@
-<h1 align="center">DDX7: DDX7: Differentiable FM Synthesis of Musical Instrument Sounds</h1>
+<h1 align="center">DDX7: Differentiable FM Synthesis of Musical Instrument Sounds</h1>
 <div align="center">
 <h4>
     <a href="" target="_blank">paper</a> - <a href="https://fcaspe.github.io/ddx7" target="_blank">website</a>
@@ -15,9 +15,10 @@ for Music Information Retrieval Conference [ISMIR 2022](https://ismir2022.ismir.
 
 It is reccomended to install this repo on a virtual environment.
 
-
-    pip install -r requirements.txt
-    pip install -e .
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
 
 Also make sure `pytorch` is setup with the [CUDA version](https://pytorch.org/get-started/locally/)
 that support the capabilities of your GPU.
@@ -35,16 +36,28 @@ Please check the `dataset` directory for advanced options to process and build a
 
 **Quick start** - will extract and process violin, flute, and trumpet data with [`torchcrepe`](https://github.com/maxrmorrison/torchcrepe).
 
-    python dataset/create_data.py urmp.source_folder=/path/to/URMP/Dataset
-
+```bash
+cd dataset
+python create_data.py urmp.source_folder=/path/to/URMP/Dataset
+```
 
 ## Training
 
 Please check the `recipes` directory for available models and hyperparameters.
+Make sure processed data is at the expected directory.
 
-**Quick start: train DDX7** - will train a DDX7 model on violin data on GPU.
+**Quick start: train DDX7** - will train a DDX7 model on URMP violin data on the GPU.
 
-    python train.py # override GPU with "device=cpu" option.
-
+```bash
+python train.py # override GPU with "device=cpu" option.
+```
 
 ## Citation
+```bibtex
+@article{caspe2022ddx7,
+    title={{DDX7: Differentiable FM Synthesis of Musical Instrument Sounds}},
+    author={Caspe, Franco and McPherson, Andrew and Sandler, Mark},
+    journal={Proceedings of the 23rd International Society for Music Information Retrieval Conference},
+    year={2022}
+}
+```
