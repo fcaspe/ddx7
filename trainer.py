@@ -288,7 +288,7 @@ class Trainer():
         print('[INFO] Model has {} trainable parameters.'.format(n_params))
 
         # Load checkpoint if needed (resume_epoch=-1 for best model)
-        if(resume_epoch is not 0):
+        if(resume_epoch != 0):
             self.model = self.load_checkpoint(self.model,resume_epoch)
             # we should store and restore the state dict of scheduler and optimizer too.
 

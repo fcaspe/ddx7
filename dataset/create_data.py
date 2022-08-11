@@ -186,7 +186,7 @@ class ProcessData():
                 rms = self.calc_rms(audio)
                 if(self.contiguous):
                     if(self.contiguous_clip_noise):
-                        print("[DEBUG] clipping noise")
+                        if(self.debug): print("[DEBUG] clipping noise")
                         clip_pos = (f0 > 1900.0)
                         loudness[clip_pos] = -_DB_RANGE
                     audio = self.pad_to_expected_size(audio,f0.shape[0]*self.hop_size,0)
@@ -225,26 +225,23 @@ def create_mono_testset(audio_files, target_dir, instrument):
 
 def make_testset(args):
     CWD = Path(hydra.utils.get_original_cwd()) # Get current directory
-    print(CWD)
     os.chdir(CWD)
 
     if args.testset is not None:
 
-        if(args.dont_copy is False):
+        if(args.skip_copy is False):
 
             # Create directories if needed
             dirs = args.testset.input_dir.split("/")
             target_dir = CWD
             for d in dirs:
                 target_dir = target_dir / d
-                print(target_dir)
+                #print(target_dir)
                 target_dir.mkdir(exist_ok=True)
 
-            print(args.testset.instruments)
-
-
             testset_path = CWD / args.testset.source_folder
-            #print("[INFO] Testset source path:: {} \n\n".format(testset_path))
+            print("[INFO] Testset source path: {}".format(testset_path))
+            print("[INFO] will source files from directories: {}".format(args.testset.instruments))
 
             for instrument in args.testset.instruments:
                 #print(instrument)
@@ -257,14 +254,14 @@ def make_testset(args):
                                     target_dir=target_dir,
                                     instrument=instrument)
 
-    if(args.dont_process is False):
+    if(args.skip_process is False):
 
         # Create output dirs if needed
         dirs = args.testset.output_dir.split("/")
         target_dir = CWD
         for d in dirs:
             target_dir = target_dir / d
-            print(target_dir)
+            #print(target_dir)
             target_dir.mkdir(exist_ok=True)
 
         # Process Test Set
@@ -281,29 +278,29 @@ def make_testset(args):
     return
 
 def make_urmp(args):
- # Phase 0 - copy all testset wavs to corresponding folders
+ # Phase 0 - copy all urmp wavs to corresponding folders
     CWD = Path(hydra.utils.get_original_cwd()) # Get current directory
     os.chdir(CWD)
 
     if args.urmp is not None:
         urmp_path = CWD / args.urmp.source_folder
 
-        if(args.dont_copy is False):
+        if(args.skip_copy is False):
 
             # Create directories if needed
             dirs = args.urmp.input_dir.split("/")
             target_dir = CWD
             for d in dirs:
                 target_dir = target_dir / d
-                print(target_dir)
+                #print(target_dir)
                 target_dir.mkdir(exist_ok=True)
 
             # Find relevant audio files.
             urmp_audio_files = list(urmp_path.glob(f'./*/{args.urmp.mono_regex}*.wav'))
 
-            print("[INFO] URMP Path: {} \n\n".format(urmp_path))
+            print("[INFO] URMP Path: {}".format(urmp_path))
 
-            print("[INFO] Number of files: {}\n".format(len(urmp_audio_files)))
+            print("[INFO] Number of files: {}".format(len(urmp_audio_files)))
 
             print(args.urmp.instruments.keys())
             # Partial function with instruments pre-configured for processing.
@@ -316,14 +313,14 @@ def make_urmp(args):
             thread_map(create_mono_urmp_partial, list(args.urmp.instruments.keys()))
 
     # Process Train Set
-    if(args.dont_process is False):
+    if(args.skip_process is False):
 
         # Create output dirs if needed
         dirs = args.urmp.output_dir.split("/")
         target_dir = CWD
         for d in dirs:
             target_dir = target_dir / d
-            print(target_dir)
+            #print(target_dir)
             target_dir.mkdir(exist_ok=True)
 
         data_processor = hydra.utils.instantiate(args.data_processor)
