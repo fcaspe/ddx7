@@ -1,8 +1,8 @@
 <h1 align="center">DDX7: Differentiable FM Synthesis of Musical Instrument Sounds</h1>
 <div align="center">
-<h4>
-    <a href="" target="_blank">paper</a> - <a href="https://fcaspe.github.io/ddx7" target="_blank">website</a>
-</h4>
+<h3>
+    <a href="http://arxiv.org/abs/2208.06169" target="_blank">paper</a> - <a href="https://fcaspe.github.io/ddx7" target="_blank">website</a>
+</h3>
     <p>
     Franco Caspe - Andrew McPherson - Mark Sandler
     </p>
